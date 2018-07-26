@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView recyclerView;
 
     private ArrayList<SingleData> lista;
-    ArrayAdapter<SingleData> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +72,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void activarRecyclerView() {
         setLista();
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(this)); //setea layout al recycler
+        DataRecyclerAdapter adapter = new DataRecyclerAdapter(lista);
+        recyclerView.setAdapter(adapter);
     }
 
     private void activarListView() {
         setLista();
-        adapter = new DataListAdapter(this, lista);
+        ArrayAdapter<SingleData> adapter = new DataListAdapter(this, lista);
         listView.setAdapter(adapter);
     }
 
