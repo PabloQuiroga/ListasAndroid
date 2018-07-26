@@ -63,19 +63,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recyclerView.setVisibility(View.VISIBLE);
                 btn_recyclerView.setBackgroundColor(Color.BLACK);
                 btn_recyclerView.setTextColor(Color.WHITE);
+
+                activarRecyclerView();
                 break;
             }
         }
     }
 
+    private void activarRecyclerView() {
+        setLista();
+
+    }
+
     private void activarListView() {
         setLista();
-        adapter = new SingleDataAdapter(this);
+        adapter = new DataListAdapter(this, lista);
         listView.setAdapter(adapter);
     }
 
     private void setLista(){
-        lista = new ArrayList<SingleData>();
+        lista = new ArrayList<>();
         lista.add(new SingleData(1, "nombre", "seudo 1"));
         lista.add(new SingleData(2, "nombre", "seudo 2"));
         lista.add(new SingleData(3, "nombre", "seudo 3"));
@@ -90,28 +97,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lista.add(new SingleData(12, "nombre", "seudo 12"));
         lista.add(new SingleData(13, "nombre", "seudo 13"));
         lista.add(new SingleData(14, "nombre", "seudo 14"));
-    }
-
-    class SingleDataAdapter extends ArrayAdapter<SingleData> {
-
-        Activity context;
-
-        SingleDataAdapter(Activity context) {
-            super(context, R.layout.item_layout, lista);
-            this.context = context;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = context.getLayoutInflater();
-            View item = inflater.inflate(R.layout.item_layout, null);
-
-            TextView lblTitulo = (TextView)item.findViewById(R.id.LblTitulo);
-            lblTitulo.setText(lista.get(position).getOrderTag()+" "+lista.get(position).getTag());
-
-            TextView lblSubtitulo = (TextView)item.findViewById(R.id.LblSubTitulo);
-            lblSubtitulo.setText(lista.get(position).getSubTag());
-
-            return(item);
-        }
     }
 }
